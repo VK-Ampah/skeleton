@@ -1,3 +1,4 @@
+import java.util.Date;
 
 public class HealthData {
     private int id;
@@ -6,10 +7,10 @@ public class HealthData {
     private double height;
     private int steps;
     private int heartRate;
-    private String date;
+    private Date date;
 
     // Constructor, getters, and setters
-    public HealthData(int id, int userId, double weight, double height, int steps, int heartRate, String date) {
+    public HealthData(int id, int userId, double weight, double height, int steps, int heartRate, Date date) {
         this.id = id;
         this.userId = userId;
         this.weight = weight;
@@ -18,6 +19,7 @@ public class HealthData {
         this.heartRate = heartRate;
         this.date = date;
     }
+
 
     public int getId() {
         return id;
@@ -67,11 +69,11 @@ public class HealthData {
         this.heartRate = heartRate;
     }
 
-    public String getDate() {
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(String date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 
