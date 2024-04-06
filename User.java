@@ -8,7 +8,7 @@ public class User {
     private String password;
     private boolean isDoctor;
 
-    public User(int id, String firstName, String lastName, String email, String password, boolean isDoctor) {
+    public User( int id, String firstName, String lastName, String email, String password, boolean isDoctor) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -65,5 +65,16 @@ public class User {
         isDoctor = doctor;
     }
 
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", isDoctor=" + isDoctor +
+                '}';
+    }
    
 }
