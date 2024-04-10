@@ -1,4 +1,4 @@
-
+import java.sql.Date;
 
 public class MedicineReminder {
     private int id;
@@ -6,11 +6,11 @@ public class MedicineReminder {
     private String medicineName;
     private String dosage;
     private String schedule;
-    private String startDate;
-    private String endDate;
+    private Date startDate;
+    private Date endDate;
 
     // Constructor, getters, and setters
-    public MedicineReminder(int id, int userId, String medicineName, String dosage, String schedule, String startDate, String endDate) {
+    public MedicineReminder(int id, int userId, String medicineName, String dosage, String schedule, Date startDate, Date endDate) {
         this.id = id;
         this.userId = userId;
         this.medicineName = medicineName;
@@ -60,19 +60,19 @@ public class MedicineReminder {
         this.schedule = schedule;
     }
 
-    public String getStartDate() {
+    public Date getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(String startDate) {
+    public void setStartDate(Date startDate) {
         this.startDate = startDate;
     }
 
-    public String getEndDate() {
+    public Date getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(String endDate) {
+    public void setEndDate(Date endDate) {
         this.endDate = endDate;
     }
 

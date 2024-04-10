@@ -4,10 +4,10 @@ import javax.xml.crypto.Data;
 
 public class UserDao {
     DatabaseConnection databaseConnection = new DatabaseConnection();
-    Connection connection = DatabaseConnection.getCon();
+    static Connection connection = DatabaseConnection.getCon();
 
     // create user
-    public boolean createUser(User user) {
+    public static boolean createUser(User user) {
 
         // check if the user already exists by unique email
         User user1 = getUserByEmail(user.getEmail());
@@ -70,7 +70,7 @@ public class UserDao {
 
     
     // get user by email
-    public User getUserByEmail(String email) { // get user by email from database 
+    public static User getUserByEmail(String email) { // get user by email from database 
         User user = null;
 
         // Prepare the SQL query
@@ -180,7 +180,7 @@ public class UserDao {
     }
 
     // verify password
-    public boolean verifyPassword (String email, String password)
+    public static boolean verifyPassword (String email, String password)
     {
         // get the user by email
         User user = getUserByEmail(email);

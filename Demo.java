@@ -79,5 +79,9 @@ public class Demo {
         // delete
         healthDataDao.deleteHealthData(3);
 
+        // Doctor
+        Doctor doctor = new Doctor(0, "Dr. John", "Doe", "v@doctor.com", "password", true, "123456", "Cardiologist");
+
+
     }    
 }
