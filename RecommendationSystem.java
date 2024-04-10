@@ -18,6 +18,8 @@ public class RecommendationSystem {
     private static final int MIN_HEART_RATE = 60;
     private static final int MAX_HEART_RATE = 100;
     private static final int MIN_STEPS = 10000;
+    private static final double BMI_UNDERWEIGHT = 18.5;
+    private static final int BMI_OVERWEIGHT = 25;
 
     public List<String> generateRecommendations(HealthData healthData) {
         List<String> recommendations = new ArrayList<>();
@@ -28,17 +30,36 @@ public class RecommendationSystem {
             recommendations.add("Your heart rate is lower than the recommended range. " +
                     "Consider increasing your physical activity to improve your cardiovascular health.");
         }
-//
-//
-//        // Analyze steps
+        if (heartRate > MAX_HEART_RATE) {
+            recommendations.add("Your heart rate is higher than the recommended range. " +
+                    "Consider consulting with a healthcare provider to evaluate your heart health.");
+        }
+
+       // Analyze steps
         int steps = healthData.getSteps();
         if (steps < MIN_STEPS) {
             recommendations.add("You're not reaching the recommended daily step count. " +
                     "Try to incorporate more walking or other physical activities into your daily routine.");
         }
-//
-//        // Add more health data analysis and recommendations as needed
+
+        // Add more health data analysis and recommendations as needed
+
+        // Analyze BMI
+        double weight = healthData.getWeight();
+        double bmi = weight / (healthData.getHeight() * healthData.getHeight());
+        if (bmi < BMI_UNDERWEIGHT) {
+            recommendations.add("Your BMI is below the healthy range. " +
+                    "Consider consulting with a healthcare provider to discuss your nutrition and weight management.");
+        } else if (bmi > BMI_OVERWEIGHT) {
+            recommendations.add("Your BMI is above the healthy range. " +
+                    "Consider consulting with a healthcare provider to discuss your nutrition and weight management.");
+        }
+
+        int caloriesBurned = (int) (steps * 0.05);
+        recommendations.add("You have burned approximately " + caloriesBurned + " calories today.");
 
         return recommendations;
     }
+
+
 }
