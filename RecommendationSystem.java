@@ -1,5 +1,3 @@
-
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -7,16 +5,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * In this basic version of the
- * RecommendationSystem class, complete the generateRecommendations to take a
- * HealthData object as input and generates recommendations based on the user's heart rate and step count.
- * You can also expand this class to include more health data analysis and generate more specific
- * recommendations based on the user's unique health profile
- * NOTE:
- * To integrate this class into your application, you'll need to pass the HealthData object to the generateRecommendations method
- * and store the generated recommendations in the recommendations table in the database.
- */
+// RecommendationSystem class to generate
 
 public class RecommendationSystem {
     private static final int MIN_HEART_RATE = 60;
@@ -25,6 +14,7 @@ public class RecommendationSystem {
     private static final double BMI_UNDERWEIGHT = 18.5;
     private static final int BMI_OVERWEIGHT = 25;
 
+    //generate recommendations based on the user's health data
     public List<String> generateRecommendations(HealthData healthData) {
         List<String> recommendations = new ArrayList<>();
 
@@ -46,8 +36,6 @@ public class RecommendationSystem {
                     "Try to incorporate more walking or other physical activities into your daily routine.");
         }
 
-        // Add more health data analysis and recommendations as needed
-
         // Analyze BMI
         double weight = healthData.getWeight();
         double bmi = weight / (healthData.getHeight() * healthData.getHeight());
@@ -65,9 +53,8 @@ public class RecommendationSystem {
         return recommendations;
     }
 
+    // Create a new recommendation in the database
     public static boolean createRecommendation(Recommendation recommendation) {
-        // Write your logic here to store the recommendation in the database
-
         Connection connection = DatabaseConnection.getCon();
         String query = "INSERT INTO recommendations (user_id, recommendation_text, date) VALUES (?, ?, ?)";
         try {
@@ -100,9 +87,7 @@ public class RecommendationSystem {
     // get recommedation by user id
         public static List<Recommendation> getRecommendationsByUserId(int userId) {
                 List<Recommendation> recommendations = new ArrayList<>();
-                // Implement this method to get recommendations by user id from the database
                 Connection connection = DatabaseConnection.getCon();
-
                 String query = "SELECT * FROM recommendations WHERE user_id = ?";
 
                 try {
@@ -122,9 +107,7 @@ public class RecommendationSystem {
         }
 
         // update recommendation text by user id
-
         public static boolean updateRecommendationText(int userId, String newRecommendationText) {
-            // Implement this method to update the recommendation text in the database
             Connection connection = DatabaseConnection.getCon();
             String query = "UPDATE recommendations SET recommendation_text = ? WHERE user_id = ?";
             try {

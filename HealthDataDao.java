@@ -10,7 +10,7 @@ import java.util.List;
 public class HealthDataDao {
 
    DatabaseConnection databaseConnection = new DatabaseConnection();
-    Connection connection = DatabaseConnection.getCon();
+  Connection connection = DatabaseConnection.getCon();
 
    public boolean createHealthData(HealthData healthData) {
 
@@ -31,8 +31,6 @@ public class HealthDataDao {
       preparedStatement.setDouble(3, healthData.getHeight());
       preparedStatement.setInt(4, healthData.getSteps());
       preparedStatement.setInt(5, healthData.getHeartRate());
-      // preparedStatement.set(6, healthData.getDate());
-
       // Convert java.util.Date to java.sql.Date
       java.sql.Date sqlDate = new java.sql.Date(healthData.getDate().getTime());
       preparedStatement.setDate(6, sqlDate);
@@ -95,9 +93,7 @@ public class HealthDataDao {
  }
 
    public boolean updateHealthData(int id, double weight, double height, int steps, int heartRate, Date date) { 
-
     boolean result = false;
-
     // check if health data exists
     HealthData existingHealthData = getHealthDataById(id);
     if (existingHealthData == null) {
@@ -105,15 +101,12 @@ public class HealthDataDao {
     }
 
     String query = "UPDATE health_data SET weight = ?, height = ?, steps = ?, heart_rate = ?, date = ? WHERE id = ?";
-
     try {
       PreparedStatement preparedStatement = connection.prepareStatement(query);
       preparedStatement.setDouble(1, weight);
       preparedStatement.setDouble(2, height);
       preparedStatement.setInt(3, steps);
       preparedStatement.setInt(4, heartRate);
-      // preparedStatement.set(5, date);
-
       // Convert java.util.Date to java.sql.Date
       java.sql.Date sqlDate = new java.sql.Date(date.getTime());
       preparedStatement.setDate(5, sqlDate);

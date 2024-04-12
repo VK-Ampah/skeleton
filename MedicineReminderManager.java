@@ -1,25 +1,11 @@
-
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Date;
-/**
- * The MedicineReminderManager class should have methods to add reminders, get reminders
- *  1. for a specific user, and
- *  2. get reminders that are DUE for a specific user.
- *
- *  You'll need to integrate this class with your application and database logic to
- *  1. store,
- *  2. update, and
- *  3. delete reminders as needed.
- */
+
 
 public class MedicineReminderManager {
     private List<MedicineReminder> reminders;
@@ -38,22 +24,16 @@ public class MedicineReminderManager {
 
     // create reminder for a specific user
     public boolean createReminder(MedicineReminder reminder) {
-        // Write your logic here
         String query = "INSERT INTO medicine_reminders (user_id, medicine_name, dosage, schedule, start_date, end_date) VALUES (?, ?, ?, ?, ?, ?)";
-        // Database logic to insert reminder Using Prepared Statement
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             preparedStatement.setInt(1, reminder.getUserId());
             preparedStatement.setString(2, reminder.getMedicineName());
             preparedStatement.setString(3, reminder.getDosage());
             preparedStatement.setString(4, reminder.getSchedule());
-
             // process the date
             java.sql.Date sqlStartDate = new java.sql.Date(reminder.getStartDate().getTime());
             java.sql.Date sqlEndDate = new java.sql.Date(reminder.getEndDate().getTime());
-
-            // java.sql.Date sqlStartDate = java.sql.Date.valueOf(reminder.getStartDate());
-            // java.sql.Date sqlEndDate = java.sql.Date.valueOf(reminder.getEndDate());
             preparedStatement.setDate(5, sqlStartDate);
             preparedStatement.setDate(6, sqlEndDate);
             int insertedReminder = preparedStatement.executeUpdate();
@@ -68,8 +48,7 @@ public class MedicineReminderManager {
     }
 
     // update reminder
-    public boolean updateReminder(MedicineReminder reminder) {
-      
+    public boolean updateReminder(MedicineReminder reminder) {     
         String query = "UPDATE medicine_reminders SET medicine_name = ?, dosage = ?, schedule = ?, start_date = ?, end_date = ? WHERE id = ?";
         // Database logic to update reminder Using Prepared Statement
         try {
@@ -97,8 +76,7 @@ public class MedicineReminderManager {
         return false;
     }
 
-    public boolean deleteReminder(int reminderId) {
-     
+    public boolean deleteReminder(int reminderId) {     
         String query = "DELETE FROM medicine_reminders WHERE id = ?";
         // Database logic to delete reminder Using Prepared Statement
         try {
@@ -117,11 +95,8 @@ public class MedicineReminderManager {
 
     public List<MedicineReminder> getRemindersForUser(int userId) {
         List<MedicineReminder> userReminders = new ArrayList<>();
-        // Write your logic here
-
         String query = "SELECT * FROM medicine_reminders WHERE user_id = ?";
         // Database logic to get reminders for a specific user
-
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             preparedStatement.setInt(1, userId);
@@ -140,26 +115,23 @@ public class MedicineReminderManager {
 
     public List<MedicineReminder> getDueReminders(int userId) {
         List<MedicineReminder> dueReminders = new ArrayList<>();
+        // define current date and time
         LocalDateTime now = LocalDateTime.now();
-        // DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-
-
-        // Write your logic here
+        // get users reminders
         List<MedicineReminder> userReminders = getRemindersForUser(userId);
+        // check if the reminders are due
         for (MedicineReminder reminder : userReminders) {
             LocalDateTime startDate = reminder.getStartDate().toLocalDate().atStartOfDay();
-            LocalDateTime endDate = reminder.getEndDate().toLocalDate().atStartOfDay();
-            // LocalDateTime startDate = LocalDateTime.parse(reminder.getStartDate(), formatter);
-            // LocalDateTime endDate = LocalDateTime.parse(reminder.getEndDate(), formatter);
-            if (now.isAfter(startDate) && now.isBefore(endDate)) {
+            LocalDateTime endDate = reminder.getEndDate().toLocalDate().atStartOfDay();            
+            // check if the current date is between the start and end date (inclusive endpoints)
+            if (!now.isBefore(startDate) && !now.isAfter(endDate)) {
                 dueReminders.add(reminder);
             }
         }
 
-        if(dueReminders.size() == 0) {
-            System.out.println("No due reminders found");
-        }
-
+        // if(dueReminders.size() == 0) {
+        //     System.out.println("No reminders due");            
+        // }
         return dueReminders;
     }
 }

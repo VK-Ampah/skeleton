@@ -6,7 +6,7 @@ public class Recommendation {
     private String recommendation;
     private Date date;
 
-    // Constructor, getters, and setters
+    // Constructor
     public Recommendation(int id, int userId, String recommendation, Date date) {
         this.id = id;
         this.userId = userId;

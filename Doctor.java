@@ -34,5 +34,19 @@ public class Doctor extends User{
     public void setSpecialization(String specialization) {
         this.specialization = specialization;
     }
+
+    @Override
+    public String toString() {
+        return "Doctor{" +
+            "id=" + getId() +
+            ", firstName='" + getFirstName() + '\'' +
+            ", lastName='" + getLastName() + '\'' +
+            ", email='" + getEmail() + '\'' +
+            ", password='" + getPassword() + '\'' +
+            ", isDoctor=" + isDoctor() +
+            ", medicalLicenseNumber='" + medicalLicenseNumber + '\'' +
+            ", specialization='" + specialization + '\'' +
+            '}';
+    }
 }
 
