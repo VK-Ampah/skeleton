@@ -45,15 +45,12 @@ public class UserDao {
     // get user by id
     public User getUserById(int id) {  
         User user = null;
-        // Prepare the SQL query
         String query = "SELECT * FROM users WHERE id = ?";
-        // Database logic to get data by ID Using Prepared Statement
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             preparedStatement.setInt(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
-                // create a new user object and set the values from the database
                 user = new User( resultSet.getInt("id"), resultSet.getString("first_name"), resultSet.getString("last_name"), resultSet.getString("email"), resultSet.getString("password"), resultSet.getBoolean("is_doctor"));
             }
         } catch (SQLException e) {
@@ -64,15 +61,12 @@ public class UserDao {
 
     public User getDoctorById(int id) {  
         User user = null;
-        // Prepare the SQL query
         String query = "SELECT * FROM users WHERE id = ? AND is_doctor = true";
-        // Database logic to get data by ID Using Prepared Statement
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             preparedStatement.setInt(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
-                // create a new user object and set the values from the database
                 user = new User( resultSet.getInt("id"), resultSet.getString("first_name"), resultSet.getString("last_name"), resultSet.getString("email"), resultSet.getString("password"), resultSet.getBoolean("is_doctor"));
             }
         } catch (SQLException e) {
@@ -82,11 +76,9 @@ public class UserDao {
     }
 
     // get user by email
-    public static User getUserByEmail(String email) { // get user by email from database 
+    public static User getUserByEmail(String email) {  
         User user = null;
-        // Prepare the SQL query
         String query = "SELECT * FROM users WHERE email = ?";
-        // Database logic to get data by ID Using Prepared Statement
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             preparedStatement.setString(1, email);
@@ -136,7 +128,6 @@ public class UserDao {
         }
         // Prepare the SQL query
         String query = "DELETE FROM users WHERE id = ?";
-        // Database logic to delete user
         boolean bool = false;
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(query);
@@ -169,8 +160,6 @@ public class UserDao {
             System.out.println("Password is incorrect, please try again");
 
         }
-
-        // check if the password is correct and return true or false
         return BCrypt.checkpw(password, user.getPassword());
     }
 }

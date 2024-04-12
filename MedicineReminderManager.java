@@ -128,10 +128,6 @@ public class MedicineReminderManager {
                 dueReminders.add(reminder);
             }
         }
-
-        // if(dueReminders.size() == 0) {
-        //     System.out.println("No reminders due");            
-        // }
         return dueReminders;
     }
 }

@@ -14,7 +14,6 @@ public class DoctorPortalDao {
 
    // Implement the constructor 
     public DoctorPortalDao() {
-        // a doctor portal dao object should have access to the users data and their Health Data
         userDao = new UserDao();
         healthDataDao = new HealthDataDao(); 
     }
@@ -64,18 +63,29 @@ public class DoctorPortalDao {
 
     // add doctor patient relationship  
     public boolean addDoctorPatient(int doctorId, int patientId) {
-        String query = "INSERT INTO doctor_patient (doctor_id, patient_id) VALUES (?, ?)";
+        // check if the relationship already exists
+        String checkQuery = "SELECT * FROM doctor_patient WHERE doctor_id = ? AND patient_id = ?";
+        String insertQuery = "INSERT INTO doctor_patient (doctor_id, patient_id) VALUES (?, ?)";
         try {
-            PreparedStatement preparedStatement = connection.prepareStatement(query);
-            preparedStatement.setInt(1, doctorId);
-            preparedStatement.setInt(2, patientId);
-            int result = preparedStatement.executeUpdate();
-            if (result != 0) {
-                return true;
+            PreparedStatement checkStatement = connection.prepareStatement(checkQuery);
+            checkStatement.setInt(1, doctorId);
+            checkStatement.setInt(2, patientId);
+            ResultSet resultSet = checkStatement.executeQuery();
+            if (resultSet.next()) {
+                System.out.println("Doctor patient relationship already exists");
+                return false;
+            } else {
+                PreparedStatement insertStatement = connection.prepareStatement(insertQuery);
+                insertStatement.setInt(1, doctorId);
+                insertStatement.setInt(2, patientId);
+                int result = insertStatement.executeUpdate();
+                if (result != 0) {
+                    return true;
+                }
             }
         } catch (SQLException e) {
             e.printStackTrace();
-            System.out.println("Doctor patient relationship not added");
+            System.out.println("Error while adding doctor patient relationship");
             return false;
         }
         return false;

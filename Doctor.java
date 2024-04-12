@@ -11,13 +11,6 @@ public class Doctor extends User{
         // this.doc_id = id;
     }
 
-    // public boolean createDoctor() {
-        
-    //     boolean bool = false;
-        
-    //     String query = "INSERT INTO doctors (user_id, medical_license_number, specialization) VALUES (?, ?, ?)";
-    // }
-
     // Getters and setters for the new properties
     public String getMedicalLicenseNumber() {
         return medicalLicenseNumber;

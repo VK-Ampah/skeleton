@@ -20,6 +20,7 @@ public class MedicineReminder {
         this.endDate = endDate;
     }
 
+    // Getters and Setters
     public int getId() {
         return id;
     }

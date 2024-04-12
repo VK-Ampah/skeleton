@@ -1,10 +1,7 @@
-
-
-// import com.DataBaseConnection;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
-// import org.mindrot.jbcrypt.BCrypt;
+
 
 public class HealthMonitoringApp {
     private static DoctorPortalDao doctorPortalDao = new DoctorPortalDao();
@@ -18,15 +15,19 @@ public class HealthMonitoringApp {
         System.out.println("-----------------------");
         System.out.println("-----------------------");
         List<User> userList = new ArrayList<>();
-        User user3 = new User(0, "Andrew", "Morgan", "morgan@gmail.com", "puyol", false);
-        User user4 = new User(0, "shaun", "rewadisky", "shaun@gmail.com", "payard", true);
+        User user1 = new User(0, "John", "Dougan", "john@gmail.com", "jonny", true);
+        User user2 = new User(0, "Jasmine", "Aladin", "Jas@gmail.com", "jasmine", false);    
+        User user3 = new User(0, "Andrew", "Morgan", "morgan@gmail.com", "puyol", true);
+        User user4 = new User(0, "shaun", "rewadisky", "shaun@gmail.com", "payard", false);
         User user5 = new User(0, "shigy", "laveron", "shigy@gmail.com", "lesly", false);
-        User user6 = new User(0, "michael", "wilson", "mwilson@gmail.com", "leslina", true); 
+        User user6 = new User(0, "michael", "wilson", "mwilson@gmail.com", "leslina", false); 
         User user7 = new User(0, "sophia", "brown", "soph@gmail.com", "hedbg", false);
-        User user8 = new User(0, "james", "smith", "james@gmail.com", "james", true);
+        User user8 = new User(0, "james", "smith", "james@gmail.com", "james", false);
         User user9 = new User(0, "jane", "doe", "jane@gmail.com", "jane", false);
         User user10 = new User(0, "alice", "smith", "alice@gmail.com", "alice", true);
     
+        userList.add(user1);
+        userList.add(user2);
         userList.add(user3);
         userList.add(user4);
         userList.add(user5);
@@ -55,6 +56,7 @@ public class HealthMonitoringApp {
         System.out.println("Testing Login User:");
         System.out.println("-----------------------");
         UserDao.verifyPassword("morgan@gmail.com", "password");
+        UserDao.verifyPassword("shaun@gmail.com,", "payard");
         System.out.println("-----------------------");
         System.out.println("-----------------------");
         System.out.println(" ");
@@ -196,7 +198,7 @@ public class HealthMonitoringApp {
       // Test the Doctor Portal
     public static void testDoctorPortal() {
         // Replace the doctorId with a valid ID from your database
-        int doctorId = 3;
+        int doctorId = 1;
         int patientId = 5;
         // Add code to Fetch the doctor by ID
         Doctor doctor = doctorPortalDao.getDoctorById(doctorId);
@@ -208,6 +210,19 @@ public class HealthMonitoringApp {
         System.out.println(doctor);
         System.out.println("------------------------------------------");
         System.out.println(" ");
+        // Add doctor patient relationship
+        System.out.println("Inserting records into Doctor-Patient Table:");
+        System.out.println("------------------------------------------");
+        System.out.println("------------------------------------------");
+        doctorPortalDao.addDoctorPatient(doctorId, patientId);
+        doctorPortalDao.addDoctorPatient(3, 6);
+        doctorPortalDao.addDoctorPatient(1, 8);
+        doctorPortalDao.addDoctorPatient(3, 5);
+        doctorPortalDao.addDoctorPatient(1, 6);
+        doctorPortalDao.addDoctorPatient(3, 8);
+        doctorPortalDao.addDoctorPatient(10, 9);
+        System.out.println(""); 
+        System.out.println("------------------------------------------");
         // Add code to Fetch patients associated with the doctor
         List<User> patients = doctorPortalDao.getPatientsByDoctorId(doctorId);
         System.out.println("Printing Patients associated with Doctor 3:");

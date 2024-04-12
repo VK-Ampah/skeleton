@@ -5,8 +5,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-// RecommendationSystem class to generate
-
 public class RecommendationSystem {
     private static final int MIN_HEART_RATE = 60;
     private static final int MAX_HEART_RATE = 100;
@@ -18,7 +16,7 @@ public class RecommendationSystem {
     public List<String> generateRecommendations(HealthData healthData) {
         List<String> recommendations = new ArrayList<>();
 
-//        // Analyze heart rate
+        // Analyze heart rate
         int heartRate = healthData.getHeartRate();
         if (heartRate < MIN_HEART_RATE) {
             recommendations.add("Your heart rate is lower than the recommended range. " +
@@ -47,6 +45,7 @@ public class RecommendationSystem {
                     "Consider consulting with a healthcare provider to discuss your nutrition and weight management.");
         }
 
+        // Calculate calories burned
         int caloriesBurned = (int) (steps * 0.05);
         recommendations.add("You have burned approximately " + caloriesBurned + " calories today.");
 

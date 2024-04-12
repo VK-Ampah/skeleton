@@ -19,8 +19,7 @@ public class HealthData {
         this.heartRate = heartRate;
         this.date = date;
     }
-
-
+    // Getters and Setters
     public int getId() {
         return id;
     }

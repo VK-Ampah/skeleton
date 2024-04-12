@@ -17,6 +17,7 @@ public class User {
         this.isDoctor = isDoctor;
     }
 
+    // Getters and Setters
     public int getId() {
         return id;
     }
